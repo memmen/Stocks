@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11134" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11134"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -673,7 +674,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Stocks" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -703,15 +704,102 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="Stocks" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n8v-yb-aJd">
+                                <rect key="frame" x="13" y="735" width="772" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="UJv-Zc-hE3"/>
+                                </constraints>
+                                <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Search Stocks" usesSingleLineMode="YES" bezelStyle="round" id="Zgj-cj-Viv">
+                                    <font key="font" metaFont="system" size="15"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <connections>
+                                        <action selector="searchStocks:" target="XfG-lQ-9wD" id="SR6-RL-17Q"/>
+                                    </connections>
+                                </searchFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="XfG-lQ-9wD" id="Oa5-uF-XVy"/>
+                                </connections>
+                            </searchField>
+                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="UBU-SF-FBo" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="15" y="15" width="770" height="272"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="272" id="2Pc-7d-KpP"/>
+                                    <constraint firstAttribute="width" constant="770" id="EOP-mp-8aJ"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="n6g-LH-tkf" kind="embed" id="Pr1-3C-OM7"/>
+                                </connections>
+                            </containerView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bhJ-qe-Xtq">
+                                <rect key="frame" x="142" y="647" width="37" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="sHI-4C-bWg">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mQ0-zY-Lbs">
+                                <rect key="frame" x="15" y="585" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Kv3-68-oqS"/>
+                                    <constraint firstAttribute="width" constant="100" id="wXp-5u-INp"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="oy4-CX-19C"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="mQ0-zY-Lbs" firstAttribute="top" secondItem="n8v-yb-aJd" secondAttribute="bottom" constant="50" id="3jc-mB-QbL"/>
+                            <constraint firstItem="n8v-yb-aJd" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="15" id="JSB-K8-X9P"/>
+                            <constraint firstItem="UBU-SF-FBo" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="15" id="T21-ZF-uLW"/>
+                            <constraint firstItem="mQ0-zY-Lbs" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="15" id="izE-r1-Kh3"/>
+                            <constraint firstAttribute="trailing" secondItem="n8v-yb-aJd" secondAttribute="trailing" constant="15" id="oxd-o8-U3h"/>
+                            <constraint firstAttribute="trailing" secondItem="UBU-SF-FBo" secondAttribute="trailing" constant="15" id="r9Z-Q5-a0N"/>
+                            <constraint firstAttribute="bottom" secondItem="UBU-SF-FBo" secondAttribute="bottom" constant="15" id="sIT-6y-Hnx"/>
+                            <constraint firstItem="n8v-yb-aJd" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="13" id="wAR-Z7-zpf"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="companyLogo" destination="mQ0-zY-Lbs" id="wgW-Fd-fha"/>
+                        <outlet property="lineChartView" destination="UBU-SF-FBo" id="wQn-eT-o1M"/>
+                        <outlet property="search" destination="n8v-yb-aJd" id="gJZ-gX-4Ko"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="75" y="1065"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="EEV-dt-hMv">
+            <objects>
+                <viewController id="a9D-Tb-MQn" sceneMemberID="viewController">
+                    <view key="view" id="vwo-BA-kJv">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="OP0-6b-G0K" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="32" y="1252"/>
+        </scene>
+        <!--Line Chart View-->
+        <scene sceneID="tul-gX-tkG">
+            <objects>
+                <viewController id="n6g-LH-tkf" customClass="LineChartView" customModule="Charts" sceneMemberID="viewController">
+                    <view key="view" id="gNY-Cc-o9t">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="T7e-Vz-rH8" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1045" y="1770"/>
         </scene>
     </scenes>
 </document>
